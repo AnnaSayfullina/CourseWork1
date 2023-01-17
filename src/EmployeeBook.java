@@ -1,5 +1,10 @@
 import java.util.Arrays;
 
+/**
+ * 1. Создать класс EmployeeBook.
+ * 2. Перенести хранилище сотрудников в него (массив), закрыть к нему доступ извне (сделать приватным).
+ */
+
 public class EmployeeBook {
     private Employee[] employees;
     private int sizeArray;
@@ -11,6 +16,12 @@ public class EmployeeBook {
     public Employee[] getEmployees(){
         return this.employees;
     }
+    /**
+     * Добавить нового сотрудника (создаем объект, заполняем поля, кладем в массив).
+     * Нужно найти свободную ячейку в массиве и добавить нового сотрудника в нее.
+     * Искать нужно всегда с начала, так как возможно добавление в ячейку удаленных ранее сотрудников.
+     */
+
     public void addEmployeeToArray(Employee name) {
         int size = 0;
         for (int i = 0; i < employees.length; i++) {
@@ -29,12 +40,18 @@ public class EmployeeBook {
         Employee name = new Employee(fullName, department, salary);
         addEmployeeToArray(name);
     }
+    /**Получить список всех сотрудников со всеми имеющимися по ним данными
+     * (вывести в консоль значения всех полей (toString)).
+     */
+
     public void printEmployees(){
         System.out.println("Все сотрудники:");
         for (int i = 0; i < employees.length; i++) {
             System.out.println(employees[i]);
         }
     }
+    /**Посчитать сумму затрат на зарплаты в месяц.
+     */
     public double calculateAllSalaries(){
         double sum = 0;
         for (int i = 0; i < employees.length; i++){
@@ -42,15 +59,21 @@ public class EmployeeBook {
         }
         return sum;
     }
+    /**Подсчитать среднее значение зарплат (можно использовать для этого метод из пункта b).
+     */
     public double calculateMiddleSalary(){
         return calculateAllSalaries()/employees.length;
     }
+    /**Получить Ф. И. О. всех сотрудников (вывести в консоль)
+     */
     public void printFullNameAllEmployees(){
         System.out.println("Ф.И.О. всех сотрудников:");
         for (int i = 0; i < employees.length; i++) {
             System.out.println(getEmployees()[i].getName());
         }
     }
+    /**Найти сотрудника с максимальной зарплатой.
+     */
     public Employee findEmployeeWithMaxSalary(){
         double maxSalary = employees[0].getSalary();
         Employee maxEmployee = employees[0];
@@ -62,6 +85,8 @@ public class EmployeeBook {
         }
         return maxEmployee;
     }
+    /**Найти сотрудника с минимальной зарплатой.
+     */
     public Employee findEmployeeWithMinSalary(){
         double minSalary = employees[0].getSalary();
         Employee minEmployee = employees[0];
@@ -73,12 +98,17 @@ public class EmployeeBook {
         }
         return minEmployee;
     }
+    /**Проиндексировать зарплату (вызвать изменение зарплат у всех сотрудников на величину аргумента в %).
+     */
     public void increaseSalaryByPercent(double percent){
         percent = 0.01 * percent;
         for (int i = 0; i < employees.length; i++){
             employees[i].setSalary(employees[i].getSalary() * (1 + percent));
         }
     }
+    /** Получить в качестве параметра номер отдела (1–5) и найти (всего 6 методов):
+     Сотрудника с максимальной зарплатой.
+     */
     public Employee findEmployeeWithMaxSalaryInDepartment(int department){
         double maxSalary = 0;
         Employee maxEmployeeDepartment = employees[0];
@@ -96,6 +126,9 @@ public class EmployeeBook {
         Employee name = findEmployeeWithMaxSalaryInDepartment(department);
         System.out.printf("В отделе %d сотрудник %s с максимальной зарплатой %.2f рублей%n", name.getDepartment(), name.getName(), name.getSalary());
     }
+    /** Получить в качестве параметра номер отдела (1–5) и найти (всего 6 методов):
+     Сотрудника с минимальной зарплатой.
+     */
     public Employee findEmployeeWithMinSalaryInDepartment(int department){
         double minSalary = Integer.MAX_VALUE;
         Employee minEmployeeDepartment = employees[0];
@@ -113,6 +146,9 @@ public class EmployeeBook {
         Employee name = findEmployeeWithMinSalaryInDepartment(department);
         System.out.printf("В отделе %d сотрудник %s с минимальной зарплатой %.2f рублей%n", name.getDepartment(), name.getName(), name.getSalary());
     }
+    /** Получить в качестве параметра номер отдела (1–5) и найти (всего 6 методов):
+     Сумму затрат на зарплату по отделу.
+     */
     public double calculateSalariesOfDepartment(int department){
         double sum = 0;
         for (int i = 0; i < employees.length; i++){
@@ -125,6 +161,9 @@ public class EmployeeBook {
     public void printSalariesOfDepartment(int department){
         System.out.printf("Сумма затрат на зарплату по отделу %d составила %.02f рублей%n", department, calculateSalariesOfDepartment(department));
     }
+    /** Получить в качестве параметра номер отдела (1–5) и найти (всего 6 методов):
+     Среднюю зарплату по отделу (учесть, что количество людей в отделе отличается от employees.length).
+     */
     public double calculateMiddleSalariesOfDepartment(int department) {
         double sum = calculateSalariesOfDepartment(department);
         int numbers = 0;
@@ -138,6 +177,9 @@ public class EmployeeBook {
     public void printMiddleSalariesOfDepartment(int department){
         System.out.printf("Средняя зарплата по отделу %d составила %.02f рублей%n", department, calculateMiddleSalariesOfDepartment(department));
     }
+    /** Получить в качестве параметра номер отдела (1–5) и найти (всего 6 методов):
+     Проиндексировать зарплату всех сотрудников отдела на процент, который приходит в качестве параметра.
+     */
     public void increaseSalaryByPercentInDepartment(double percent, int department){
         percent = 1+ 0.01 * percent;
         for (int i = 0; i < employees.length; i++){
@@ -146,6 +188,9 @@ public class EmployeeBook {
             }
         }
     }
+    /** Получить в качестве параметра номер отдела (1–5) и найти (всего 6 методов):
+     Напечатать всех сотрудников отдела (все данные, кроме отдела).
+     */
     public void printEmployeesDepartment(int department){
         System.out.println("Сотрудники отдела " + department);
         for (int i = 0; i < employees.length; i++) {
@@ -154,6 +199,10 @@ public class EmployeeBook {
             }
         }
     }
+    /** Получить в качестве параметра число и найти:
+     1. Всех сотрудников с зарплатой меньше числа (вывести id, Ф. И. О. и зарплатой в консоль).
+     2. Всех сотрудников с зарплатой больше (или равно) числа (вывести id, Ф. И. О. и зарплатой в консоль).
+     */
     public void printEmployeesSalaryIsLessThan (int salary){
         System.out.println("Сотрудники с зарплатой меньше " + salary + " рублей:");
         for (int i = 0; i < employees.length; i++) {
@@ -170,6 +219,8 @@ public class EmployeeBook {
             }
         }
     }
+    /**Удалить сотрудника (находим сотрудника по Ф. И. О. и/или id, обнуляем его ячейку в массиве).
+     */
     public void removeEmployee(String fullName) {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i].getName().equals(fullName)) {
@@ -184,6 +235,11 @@ public class EmployeeBook {
         }
         System.out.println("Сотрудник " + fullName + " не найден");
     }
+    /** Изменить сотрудника (получить сотрудника по Ф. И. О., модернизировать его запись):
+     1. Изменить зарплату.
+     2. Изменить отдел.
+     Придумать архитектуру. Сделать или два метода, или один, но продумать его.
+     */
     public Employee findEmployee(String fullName) {
         Employee name = employees[0];
         for (int i = 0; i < employees.length; i++) {
@@ -199,6 +255,9 @@ public class EmployeeBook {
     public void changeDepartment(String fullName, int department) {
         findEmployee(fullName).setDepartment(department);
     }
+
+    /** Получить Ф. И. О. всех сотрудников по отделам (напечатать список отделов и их сотрудников).
+     */
     public void sortArrayByDepartment(){
         Arrays.sort(employees);
     }
