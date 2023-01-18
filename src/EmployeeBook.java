@@ -9,13 +9,20 @@ public class EmployeeBook {
     private Employee[] employees;
     private int sizeArray;
 
-    public EmployeeBook(int sizeArray){
-        this.employees = new Employee[sizeArray];
-        this.sizeArray = sizeArray;
+    public EmployeeBook(){
+//        this.employees = new Employee[sizeArray];
+//        this.sizeArray = sizeArray;
+        this.employees = new Employee[15];
     }
     public Employee[] getEmployees(){
         return this.employees;
     }
+    public int getCurrentSizeArray(){
+        return sizeArray;
+    }
+//    public int setSizeArray(int newSize){
+//        return this.sizeArray= newSize;
+//    }
     /**
      * Добавить нового сотрудника (создаем объект, заполняем поля, кладем в массив).
      * Нужно найти свободную ячейку в массиве и добавить нового сотрудника в нее.
@@ -23,18 +30,10 @@ public class EmployeeBook {
      */
 
     public void addEmployeeToArray(Employee name) {
-        int size = 0;
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] == null) {
-                employees[i] = name;
-                return;
-            }
-            size++;
+        if (sizeArray>= employees.length){
+            System.out.println("Новый сотрудник не добавлен. В хранилище нет места.");
         }
-        if (size == employees.length) {
-            sizeArray++;
-            employees[employees.length-1] = name;
-        }
+        employees[sizeArray++] = name;
     }
     public void createNewEmployee(String fullName, int department, int salary){
         Employee name = new Employee(fullName, department, salary);
@@ -46,7 +45,7 @@ public class EmployeeBook {
 
     public void printEmployees(){
         System.out.println("Все сотрудники:");
-        for (int i = 0; i < employees.length; i++) {
+        for (int i = 0; i < sizeArray; i++) {
             System.out.println(employees[i]);
         }
     }
@@ -54,7 +53,7 @@ public class EmployeeBook {
      */
     public double calculateAllSalaries(){
         double sum = 0;
-        for (int i = 0; i < employees.length; i++){
+        for (int i = 0; i < sizeArray; i++){
             sum += employees[i].getSalary();
         }
         return sum;
@@ -62,13 +61,13 @@ public class EmployeeBook {
     /**Подсчитать среднее значение зарплат (можно использовать для этого метод из пункта b).
      */
     public double calculateMiddleSalary(){
-        return calculateAllSalaries()/employees.length;
+        return calculateAllSalaries()/sizeArray;
     }
     /**Получить Ф. И. О. всех сотрудников (вывести в консоль)
      */
     public void printFullNameAllEmployees(){
         System.out.println("Ф.И.О. всех сотрудников:");
-        for (int i = 0; i < employees.length; i++) {
+        for (int i = 0; i < sizeArray; i++) {
             System.out.println(getEmployees()[i].getName());
         }
     }
@@ -77,7 +76,7 @@ public class EmployeeBook {
     public Employee findEmployeeWithMaxSalary(){
         double maxSalary = employees[0].getSalary();
         Employee maxEmployee = employees[0];
-        for (int i = 1; i < employees.length; i++){
+        for (int i = 1; i < sizeArray; i++){
             if (employees[i].getSalary() > maxSalary) {
                 maxSalary = employees[i].getSalary();
                 maxEmployee = employees[i];
@@ -90,7 +89,7 @@ public class EmployeeBook {
     public Employee findEmployeeWithMinSalary(){
         double minSalary = employees[0].getSalary();
         Employee minEmployee = employees[0];
-        for (int i = 1; i < employees.length; i++){
+        for (int i = 1; i < sizeArray; i++){
             if (employees[i].getSalary() < minSalary) {
                 minSalary = employees[i].getSalary();
                 minEmployee = employees[i];
@@ -102,7 +101,7 @@ public class EmployeeBook {
      */
     public void increaseSalaryByPercent(double percent){
         percent = 0.01 * percent;
-        for (int i = 0; i < employees.length; i++){
+        for (int i = 0; i < sizeArray; i++){
             employees[i].setSalary(employees[i].getSalary() * (1 + percent));
         }
     }
@@ -112,7 +111,7 @@ public class EmployeeBook {
     public Employee findEmployeeWithMaxSalaryInDepartment(int department){
         double maxSalary = 0;
         Employee maxEmployeeDepartment = employees[0];
-        for (int i = 0; i < employees.length; i++) {
+        for (int i = 0; i < sizeArray; i++) {
             if (employees[i].getDepartment() == department) {
                 if (employees[i].getSalary() > maxSalary) {
                     maxEmployeeDepartment = employees[i];
@@ -132,7 +131,7 @@ public class EmployeeBook {
     public Employee findEmployeeWithMinSalaryInDepartment(int department){
         double minSalary = Integer.MAX_VALUE;
         Employee minEmployeeDepartment = employees[0];
-        for (int i = 0; i < employees.length; i++) {
+        for (int i = 0; i < sizeArray; i++) {
             if (employees[i].getDepartment() == department) {
                 if (employees[i].getSalary() < minSalary) {
                     minEmployeeDepartment = employees[i];
@@ -151,7 +150,7 @@ public class EmployeeBook {
      */
     public double calculateSalariesOfDepartment(int department){
         double sum = 0;
-        for (int i = 0; i < employees.length; i++){
+        for (int i = 0; i < sizeArray; i++){
             if (employees[i].getDepartment() == department) {
                 sum += employees[i].getSalary();
             }
@@ -167,7 +166,7 @@ public class EmployeeBook {
     public double calculateMiddleSalariesOfDepartment(int department) {
         double sum = calculateSalariesOfDepartment(department);
         int numbers = 0;
-        for (int i = 0; i < employees.length; i++){
+        for (int i = 0; i < sizeArray; i++){
             if (employees[i].getDepartment() == department) {
                 numbers++;
             }
@@ -182,7 +181,7 @@ public class EmployeeBook {
      */
     public void increaseSalaryByPercentInDepartment(double percent, int department){
         percent = 1+ 0.01 * percent;
-        for (int i = 0; i < employees.length; i++){
+        for (int i = 0; i < sizeArray; i++){
             if (employees[i].getDepartment() == department) {
                 employees[i].setSalary(employees[i].getSalary() * percent);
             }
@@ -193,7 +192,7 @@ public class EmployeeBook {
      */
     public void printEmployeesDepartment(int department){
         System.out.println("Сотрудники отдела " + department);
-        for (int i = 0; i < employees.length; i++) {
+        for (int i = 0; i < sizeArray; i++) {
             if (employees[i].getDepartment() == department) {
                 System.out.println(employees[i].getName() +", зарплата "+ employees[i].getSalary()+" рублей, id " + employees[i].getId());
             }
@@ -205,7 +204,7 @@ public class EmployeeBook {
      */
     public void printEmployeesSalaryIsLessThan (int salary){
         System.out.println("Сотрудники с зарплатой меньше " + salary + " рублей:");
-        for (int i = 0; i < employees.length; i++) {
+        for (int i = 0; i < sizeArray; i++) {
             if(employees[i].getSalary() < salary){
                 System.out.println(employees[i].getName() +", зарплата "+ employees[i].getSalary()+" рублей, id " + employees[i].getId());
             }
@@ -213,7 +212,7 @@ public class EmployeeBook {
     }
     public void printEmployeesSalaryIsMoreThan (int salary){
         System.out.println("Сотрудники с зарплатой больше (или равной) " + salary + " рублей:");
-        for (int i = 0; i < employees.length; i++) {
+        for (int i = 0; i < sizeArray; i++) {
             if(employees[i].getSalary() >= salary){
                 System.out.println(employees[i].getName() +", зарплата "+ employees[i].getSalary()+" рублей, id " + employees[i].getId());
             }
@@ -222,7 +221,7 @@ public class EmployeeBook {
     /**Удалить сотрудника (находим сотрудника по Ф. И. О. и/или id, обнуляем его ячейку в массиве).
      */
     public void removeEmployee(String fullName) {
-        for (int i = 0; i < employees.length; i++) {
+        for (int i = 0; i < sizeArray; i++) {
             if (employees[i].getName().equals(fullName)) {
                 employees[i] = null;
                 if (i != employees.length-1) {
@@ -242,7 +241,7 @@ public class EmployeeBook {
      */
     public Employee findEmployee(String fullName) {
         Employee name = employees[0];
-        for (int i = 0; i < employees.length; i++) {
+        for (int i = 0; i < sizeArray; i++) {
             if (employees[i].getName().equals(fullName)) {
                 name = employees[i];
             }
@@ -259,16 +258,25 @@ public class EmployeeBook {
     /** Получить Ф. И. О. всех сотрудников по отделам (напечатать список отделов и их сотрудников).
      */
     public void sortArrayByDepartment(){
+        Employee[] newArray = Arrays.copyOf(employees, sizeArray);
+        employees = newArray;
         Arrays.sort(employees);
     }
     public void printAllDepartments(){
         sortArrayByDepartment();
-        for (int i = 0; i < employees.length; i++){
+        for (int i = 0; i < sizeArray; i++){
             System.out.println("Отдел " + employees[i].getDepartment());
+            if (i == sizeArray - 1) {
+                System.out.println(employees[i].getName());
+                return;
+            }
+            if(employees[i].getDepartment() != employees[i+1].getDepartment()) {
+                System.out.println(employees[i].getName());
+            }
             while (employees[i].getDepartment() == employees[i+1].getDepartment() ){
                 System.out.println(employees[i].getName());
                 i++;
-                if(i == employees.length -1) {
+                if(i == sizeArray -1) {
                     System.out.println(employees[i].getName());
                     return;
                 }

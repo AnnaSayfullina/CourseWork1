@@ -1,6 +1,6 @@
 class Main {
     public static void main(String[] args) {
-        EmployeeBook employees = new EmployeeBook(15);
+        EmployeeBook employees = new EmployeeBook();
         employees.createNewEmployee("Сидоров Павел Петрович", 1, 25000);
         employees.createNewEmployee("Иванов Иван Иванович", 1, 28000);
         employees.createNewEmployee("Федоров Федор Федорович", 1, 50000);
@@ -19,6 +19,7 @@ class Main {
 
         employees.printEmployees();
         System.out.println();
+        System.out.println(employees.getCurrentSizeArray());
 
         System.out.printf("Сумма затрат на зарплаты в месяц составляет %.2f рублей%n", employees.calculateAllSalaries());
         System.out.printf("Среднее значение зарплат %.2f рублей%n", employees.calculateMiddleSalary());
@@ -62,7 +63,8 @@ class Main {
 
         System.out.println("Создание нового сотрудника и добавление его в массив");
         employees.createNewEmployee("Васильев Василий Васильевич", 1, 60000);
-        employees.printEmployees();
+//        employees.createNewEmployee("Матросова Анна Геннадьевна", 5, 55500);
+             employees.printEmployees();
         System.out.println();
 
         System.out.println("Изменение зарплаты сотрудника");
@@ -74,8 +76,9 @@ class Main {
         employees.changeDepartment("Иванов Иван Иванович", 5);
         System.out.println(employees.findEmployee("Иванов Иван Иванович"));
         System.out.println();
-
+        System.out.println(employees.getCurrentSizeArray());
         System.out.println("Список сотрудников по отделам");
+
         employees.printAllDepartments();
 
 
