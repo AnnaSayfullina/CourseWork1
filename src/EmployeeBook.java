@@ -10,8 +10,6 @@ public class EmployeeBook {
     private int sizeArray;
 
     public EmployeeBook(){
-//        this.employees = new Employee[sizeArray];
-//        this.sizeArray = sizeArray;
         this.employees = new Employee[15];
     }
     public Employee[] getEmployees(){
@@ -20,9 +18,6 @@ public class EmployeeBook {
     public int getCurrentSizeArray(){
         return sizeArray;
     }
-//    public int setSizeArray(int newSize){
-//        return this.sizeArray= newSize;
-//    }
     /**
      * Добавить нового сотрудника (создаем объект, заполняем поля, кладем в массив).
      * Нужно найти свободную ячейку в массиве и добавить нового сотрудника в нее.
